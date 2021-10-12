@@ -26,31 +26,40 @@ class GildedRose {
 
             TypeArticle typeOfItem = this.GetTypeArticle(item.name);
 
-            if (typeOfItem != TypeArticle.AGED_BRIE
-                && typeOfItem != TypeArticle.BACKSTAGE_PASSES) {
-                if (item.quality > 0) {
-                    if (typeOfItem != TypeArticle.SULFURAS) {
-                        item.quality = item.quality - 1;
+            // Pour articles normaux avec encore de la qualité, elle baisse
+            if(typeOfItem == TypeArticle.DEFAULT && item.quality > 0) {
+                item.quality -= 1;
+            }
+            // Les autres montent en qualité
+            else if (item.quality < 50) {
+
+                // Pour les articles de types "Backstages Passes"
+                if (typeOfItem == TypeArticle.BACKSTAGE_PASSES) {
+
+                    // ... De 5 jours ou moins
+                    if(item.sellIn <= 5 ) {
+                        item.quality += 3;
+                    }
+                    // ... De 10 jours ou moins
+                    else if(item.sellIn <= 10 ) {
+                        item.quality += 2;
+                    }
+                    else {
+                        item.quality += 1;
+                    }
+
+                    if(item.quality > 50) {
+                        item.quality = 50;
                     }
                 }
-            } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-
-                    if (typeOfItem == TypeArticle.BACKSTAGE_PASSES) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-                    }
+                else {
+                    item.quality += 1;
                 }
+
+
+
+
+
             }
 
             if (typeOfItem != TypeArticle.SULFURAS) {

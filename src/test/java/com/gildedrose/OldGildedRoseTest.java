@@ -41,11 +41,29 @@ class OldGildedRoseTest {
 
         for (int i = 0; i < days; i++) {
 
+            System.out.println("--- " + i + "---");
+
+            System.out.println("====AVANT====");
+            for (int j = 0; j < newItems.length; j++) {
+
+                System.out.println("[NEW] - " + j + " - " + newItems[j]);
+                System.out.println("[OLD] - " + j + " - " + oldItems[j]);
+
+                assertEquals(newItems[j].sellIn, oldItems[j].sellIn);
+                assertEquals(newItems[j].quality, oldItems[j].quality);
+            }
+
             newApp.updateQuality();
             oldApp.updateQuality();
 
+            System.out.println("====APRES====");
+
             // Comparaison de chaque item entre ancienne et nouvelle gestion
             for (int j = 0; j < newItems.length; j++) {
+
+                System.out.println("[NEW] - " + j + " - " + newItems[j]);
+                System.out.println("[OLD] - " + j + " - " + oldItems[j]);
+
                 assertEquals(newItems[j].sellIn, oldItems[j].sellIn);
                 assertEquals(newItems[j].quality, oldItems[j].quality);
             }
