@@ -26,59 +26,72 @@ class GildedRose {
 
             TypeArticle typeOfItem = this.GetTypeArticle(item.name);
 
-            // Pour articles normaux avec encore de la qualité, elle baisse
-            if(typeOfItem == TypeArticle.DEFAULT && item.quality > 0) {
-                item.quality -= 1;
-            }
-            // Les autres montent en qualité
-            else if (item.quality < 50) {
+            switch (typeOfItem) {
+                case DEFAULT:
 
-                // Pour les articles de types "Backstages Passes"
-                if (typeOfItem == TypeArticle.BACKSTAGE_PASSES) {
+                    if(item.quality > 0) {
+                        item.quality -= 1;
+                    }
 
-                    // ... De 5 jours ou moins
-                    if(item.sellIn <= 5 ) {
-                        item.quality += 3;
+                    item.sellIn = item.sellIn - 1;
+
+                    if(item.sellIn < 0 && item.quality > 0) {
+                        item.quality -= 1;
                     }
-                    // ... De 10 jours ou moins
-                    else if(item.sellIn <= 10 ) {
-                        item.quality += 2;
-                    }
-                    else {
+
+                    continue;
+
+                case AGED_BRIE:
+
+                    if (item.quality < 50) {
                         item.quality += 1;
                     }
 
-                    if(item.quality > 50) {
-                        item.quality = 50;
+                    item.sellIn = item.sellIn - 1;
+
+                    if(item.quality < 50 && item.sellIn < 0) {
+                        item.quality = item.quality + 1;
                     }
-                }
-                else {
-                    item.quality += 1;
-                }
-            }
 
-            // Diminution des jours des articles autres que type Sulfuras
-            if (typeOfItem != TypeArticle.SULFURAS) {
-                item.sellIn = item.sellIn - 1;
-            }
+                    continue;
 
-            // Nouvelle diminution qualité pour les articles de type Default périmés
-            if(typeOfItem == TypeArticle.DEFAULT && item.sellIn < 0 && item.quality > 0) {
-                item.quality -= 1;
-            }
+                case BACKSTAGE_PASSES:
 
-            // Nouvelle augmentation de qualité pour les articles de type Aged Brie périmés
-            else if(typeOfItem == TypeArticle.AGED_BRIE && item.quality < 50 && item.sellIn < 0) {
-                item.quality = item.quality + 1;
-            }
+                    if (item.quality < 50) {
 
-            // Qualité à 0 pour les articles de types Backstage Passes périmés
-            else if(typeOfItem == TypeArticle.BACKSTAGE_PASSES && item.sellIn < 0 && item.quality > 0) {
-                item.quality = 0;
-            }
+                        // ... De 5 jours ou moins
+                        if(item.sellIn <= 5 ) {
+                            item.quality += 3;
+                        }
+                        // ... De 10 jours ou moins
+                        else if(item.sellIn <= 10 ) {
+                            item.quality += 2;
+                        }
+                        else {
+                            item.quality += 1;
+                        }
 
+                        if(item.quality > 50) {
+                            item.quality = 50;
+                        }
+                    }
+
+                    item.sellIn = item.sellIn - 1;
+
+                    if(item.sellIn < 0 && item.quality > 0) {
+                        item.quality = 0;
+                    }
+
+                    continue;
+
+                case SULFURAS:
+
+                    if(item.quality < 50) {
+                        item.quality += 1;
+                    }
+
+                    continue;
+            }
         }
-
-
     }
 }
