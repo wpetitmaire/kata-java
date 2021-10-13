@@ -64,8 +64,8 @@ class OldGildedRoseTest {
                 System.out.println("[NEW] - " + j + " - " + newItems[j]);
                 System.out.println("[OLD] - " + j + " - " + oldItems[j]);
 
-                assertEquals(newItems[j].sellIn, oldItems[j].sellIn);
-                assertEquals(newItems[j].quality, oldItems[j].quality);
+                assertEquals(oldItems[j].sellIn, newItems[j].sellIn);
+                assertEquals(oldItems[j].quality, newItems[j].quality);
             }
         }
 

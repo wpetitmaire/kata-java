@@ -55,34 +55,28 @@ class GildedRose {
                 else {
                     item.quality += 1;
                 }
-
-
-
-
-
             }
 
+            // Diminution des jours des articles autres que type Sulfuras
             if (typeOfItem != TypeArticle.SULFURAS) {
                 item.sellIn = item.sellIn - 1;
             }
 
-            if (item.sellIn < 0) {
-                if (typeOfItem != TypeArticle.AGED_BRIE) {
-                    if (typeOfItem != TypeArticle.BACKSTAGE_PASSES) {
-                        if (item.quality > 0) {
-                            if (typeOfItem != TypeArticle.SULFURAS) {
-                                item.quality = item.quality - 1;
-                            }
-                        }
-                    } else {
-                        item.quality = 0;
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
+            // Nouvelle diminution qualité pour les articles de type Default périmés
+            if(typeOfItem == TypeArticle.DEFAULT && item.sellIn < 0 && item.quality > 0) {
+                item.quality -= 1;
             }
+
+            // Nouvelle augmentation de qualité pour les articles de type Aged Brie périmés
+            else if(typeOfItem == TypeArticle.AGED_BRIE && item.quality < 50 && item.sellIn < 0) {
+                item.quality = item.quality + 1;
+            }
+
+            // Qualité à 0 pour les articles de types Backstage Passes périmés
+            else if(typeOfItem == TypeArticle.BACKSTAGE_PASSES && item.sellIn < 0 && item.quality > 0) {
+                item.quality = 0;
+            }
+
         }
 
 
