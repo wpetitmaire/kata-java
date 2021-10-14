@@ -40,6 +40,10 @@ class GildedRose {
                 case SULFURAS:
                     updateSulfurasArticleQuality(item);
                     return;
+
+                case CONJURED:
+                    updateConjuredArticleQuality(item);
+                    return;
             }
         });
     }
@@ -113,5 +117,10 @@ class GildedRose {
                 item.quality -= 1;
             }
         }
+    }
+
+    private void updateConjuredArticleQuality(Item item) {
+        updateDefaultArticleQuality(item);
+        updateDefaultArticleQuality(item);
     }
 }

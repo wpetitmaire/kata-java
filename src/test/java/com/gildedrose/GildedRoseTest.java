@@ -7,14 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GildedRoseTest {
 
     @Test
-    void foo() {
-        Item[] items = new Item[] { new Item("foo", 0, 0) };
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals("fixme", app.items[0].name);
-    }
-
-    @Test
     void getTypeArticle() {
 
         Item[] items = new Item[] {
@@ -93,6 +85,34 @@ class GildedRoseTest {
 
         assertEquals(0, items[0].sellIn);
         assertEquals(80, items[0].quality);
+    }
+
+    @Test
+    void updateConjuredArticleQuality() {
+
+        Item[] conjuredItems = new Item[] {
+            new Item("Conjured Mana Cake", 10, 20)
+        };
+
+        Item[] defaultItems = new Item[] {
+            new Item("+5 Dexterity Vest", 10, 20)
+        };
+
+        GildedRose conjuredApp = new GildedRose(conjuredItems);
+        GildedRose defaultAapp = new GildedRose(defaultItems);
+
+        int days = 16;
+
+        for (int i = 0; i < days; i++) {
+            conjuredApp.updateQuality();
+        }
+
+        for (int i = 0; i < days*2; i++) {
+            defaultAapp.updateQuality();
+        }
+
+        assertEquals(defaultItems[0].sellIn, conjuredItems[0].sellIn);
+        assertEquals(defaultItems[0].quality, conjuredItems[0].quality);
     }
 
 }
