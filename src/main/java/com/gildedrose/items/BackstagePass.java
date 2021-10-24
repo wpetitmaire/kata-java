@@ -4,6 +4,9 @@ import com.gildedrose.Item;
 
 public class BackstagePass extends Item {
 
+    public final static int QUALITY_STEP_LESS_10_DAYS = 2;
+    public final static int QUALITY_STEP_LESS_5_DAYS = 3;
+
     public BackstagePass(String name, int sellIn, int quality) {
         super(name, sellIn, quality);
     }
@@ -17,11 +20,11 @@ public class BackstagePass extends Item {
 
             // Moins de 5 jours restant
             if(this.sellIn <= 5 ) {
-                this.quality += Item.BACKSTAGE_QUALITY_STEP_LESS_5_DAYS;
+                this.quality += BackstagePass.QUALITY_STEP_LESS_5_DAYS;
             }
             // Moins de 10 jours restant
             else if(this.sellIn <= 10 ) {
-                this.quality += Item.BACKSTAGE_QUALITY_STEP_LESS_10_DAYS;
+                this.quality += BackstagePass.QUALITY_STEP_LESS_10_DAYS;
             }
             else {
                 this.quality += Item.QUALITY_STEP;
