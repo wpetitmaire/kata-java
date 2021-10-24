@@ -21,6 +21,21 @@ public class Item {
         this.quality = quality;
     }
 
+    public void updateQuality() {
+        this.sellIn -= Item.SELLIN_STEP;
+
+        // Si la qualité n'est pas encore nulle, elle se dégrade
+        if(this.quality > 0) {
+
+            this.quality -= Item.QUALITY_STEP;
+
+            // Elle se dégrade doublement si l'article est périmé
+            if(this.quality > 0 && this.sellIn < 0) {
+                this.quality -= Item.QUALITY_STEP;
+            }
+        }
+    }
+
    @Override
    public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;

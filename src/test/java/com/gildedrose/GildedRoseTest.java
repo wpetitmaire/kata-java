@@ -1,5 +1,9 @@
 package com.gildedrose;
 
+import com.gildedrose.items.AgedBrie;
+import com.gildedrose.items.BackstagePass;
+import com.gildedrose.items.Conjured;
+import com.gildedrose.items.Sulfuras;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +46,7 @@ class GildedRoseTest {
     @Test
     void updateAgedBrieArticleQuality() {
         Item[] items = new Item[] {
-            new Item("Aged Brie", 2, 0)
+            new AgedBrie("Aged Brie", 2, 0)
         };
 
         GildedRose app = new GildedRose(items);
@@ -58,7 +62,7 @@ class GildedRoseTest {
     @Test
     void updateBackstagePassesQuality() {
         Item[] items = new Item[] {
-            new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20)
+            new BackstagePass("Backstage passes to a TAFKAL80ETC concert", 15, 20)
         };
 
         GildedRose app = new GildedRose(items);
@@ -74,7 +78,7 @@ class GildedRoseTest {
     @Test
     void updateSulfurasArticleQuality() {
         Item[] items = new Item[] {
-            new Item("Sulfuras, Hand of Ragnaros", 0, 80)
+            new Sulfuras("Sulfuras, Hand of Ragnaros", 0, 80)
         };
 
         GildedRose app = new GildedRose(items);
@@ -91,7 +95,7 @@ class GildedRoseTest {
     void updateConjuredArticleQuality() {
 
         Item[] conjuredItems = new Item[] {
-            new Item("Conjured Mana Cake", 10, 20)
+            new Conjured("Conjured Mana Cake", 10, 20)
         };
 
         Item[] defaultItems = new Item[] {
