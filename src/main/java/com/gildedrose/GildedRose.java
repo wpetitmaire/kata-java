@@ -13,17 +13,7 @@ class GildedRose {
         this.items = items;
     }
 
-    TypeArticle GetTypeArticle(String name) {
-
-        return Arrays.stream(TypeArticle.values())
-            .filter(typeArticle -> typeArticle.getNom().equals(name))
-            .findFirst()
-            .orElse(TypeArticle.DEFAULT);
-    }
-
     public void updateQuality() {
-
         Arrays.stream(items).forEach(Item::updateQuality);
     }
-
 }
