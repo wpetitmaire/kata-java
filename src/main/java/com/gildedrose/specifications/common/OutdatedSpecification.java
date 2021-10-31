@@ -1,4 +1,4 @@
-package com.gildedrose.specifications.agedbrie;
+package com.gildedrose.specifications.common;
 
 import com.gildedrose.Item;
 import com.pattern.AbstractSpecification;

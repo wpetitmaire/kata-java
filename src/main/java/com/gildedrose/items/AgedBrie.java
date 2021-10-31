@@ -1,9 +1,8 @@
 package com.gildedrose.items;
 
 import com.gildedrose.Item;
-import com.gildedrose.specifications.agedbrie.OutdatedSpecification;
+import com.gildedrose.specifications.common.OutdatedSpecification;
 import com.gildedrose.specifications.common.ItemQualityUnderMaxQualitySpecification;
-import com.pattern.Specification;
 
 public class AgedBrie extends Item {
 

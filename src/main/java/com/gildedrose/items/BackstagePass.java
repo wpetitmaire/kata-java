@@ -1,6 +1,10 @@
 package com.gildedrose.items;
 
 import com.gildedrose.Item;
+import com.gildedrose.specifications.backstagepass.AvailabilityLessOrEqual10DaysSpecification;
+import com.gildedrose.specifications.backstagepass.AvailabilityLessOrEqual5DaysSpecification;
+import com.gildedrose.specifications.common.ItemQualityUnderMaxQualitySpecification;
+import com.gildedrose.specifications.common.OutdatedSpecification;
 
 public class BackstagePass extends Item {
 
@@ -14,16 +18,21 @@ public class BackstagePass extends Item {
     @Override
     public void updateQuality() {
 
+        ItemQualityUnderMaxQualitySpecification itemQualityUnderMaxQuality = new ItemQualityUnderMaxQualitySpecification();
+        AvailabilityLessOrEqual5DaysSpecification availabilityLessOrEqual5Days = new AvailabilityLessOrEqual5DaysSpecification();
+        AvailabilityLessOrEqual10DaysSpecification availabilityLessOrEqual10Days = new AvailabilityLessOrEqual10DaysSpecification();
+        OutdatedSpecification outdated = new OutdatedSpecification();
+
         // Si la qualité n'est pas encore au maximum, elle augmente différemment selon le nombre le
         // nombre de jours de validité restants
-        if (this.quality < Item.MAX_QUALITY) {
+        if (itemQualityUnderMaxQuality.isSatisfiedBy(this)) {
 
             // Moins de 5 jours restant
-            if(this.sellIn <= 5 ) {
+            if(availabilityLessOrEqual5Days.isSatisfiedBy(this)) {
                 this.quality += BackstagePass.QUALITY_STEP_LESS_5_DAYS;
             }
             // Moins de 10 jours restant
-            else if(this.sellIn <= 10 ) {
+            else if(availabilityLessOrEqual10Days.isSatisfiedBy(this)) {
                 this.quality += BackstagePass.QUALITY_STEP_LESS_10_DAYS;
             }
             else {
@@ -38,7 +47,7 @@ public class BackstagePass extends Item {
         this.sellIn -= Item.SELLIN_STEP;
 
         // Une fois la date passée, la qualité tombe à 0.
-        if(this.sellIn < 0 && this.quality > 0) {
+        if(outdated.isSatisfiedBy(this) && this.quality > 0) {
             this.quality = 0;
         }
     }
