@@ -4,6 +4,7 @@ import com.gildedrose.Item;
 import com.gildedrose.specifications.backstagepass.AvailabilityLessOrEqual10DaysSpecification;
 import com.gildedrose.specifications.backstagepass.AvailabilityLessOrEqual5DaysSpecification;
 import com.gildedrose.specifications.common.ItemQualityUnderMaxQualitySpecification;
+import com.gildedrose.specifications.common.NotNullQualitySpecification;
 import com.gildedrose.specifications.common.OutdatedSpecification;
 
 public class BackstagePass extends Item {
@@ -22,6 +23,7 @@ public class BackstagePass extends Item {
         AvailabilityLessOrEqual5DaysSpecification availabilityLessOrEqual5Days = new AvailabilityLessOrEqual5DaysSpecification();
         AvailabilityLessOrEqual10DaysSpecification availabilityLessOrEqual10Days = new AvailabilityLessOrEqual10DaysSpecification();
         OutdatedSpecification outdated = new OutdatedSpecification();
+        NotNullQualitySpecification notNullQuality = new NotNullQualitySpecification();
 
         // Si la qualité n'est pas encore au maximum, elle augmente différemment selon le nombre le
         // nombre de jours de validité restants
@@ -47,7 +49,7 @@ public class BackstagePass extends Item {
         this.sellIn -= Item.SELLIN_STEP;
 
         // Une fois la date passée, la qualité tombe à 0.
-        if(outdated.isSatisfiedBy(this) && this.quality > 0) {
+        if(outdated.and(notNullQuality).isSatisfiedBy(this)) {
             this.quality = 0;
         }
     }

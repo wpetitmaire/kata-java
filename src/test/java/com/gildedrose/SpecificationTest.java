@@ -4,6 +4,7 @@ import com.gildedrose.items.AgedBrie;
 import com.gildedrose.items.BackstagePass;
 import com.gildedrose.specifications.backstagepass.AvailabilityLessOrEqual10DaysSpecification;
 import com.gildedrose.specifications.backstagepass.AvailabilityLessOrEqual5DaysSpecification;
+import com.gildedrose.specifications.common.NotNullQualitySpecification;
 import com.gildedrose.specifications.common.OutdatedSpecification;
 import com.gildedrose.specifications.common.ItemQualityUnderMaxQualitySpecification;
 import org.junit.jupiter.api.Test;
@@ -47,5 +48,12 @@ public class SpecificationTest {
         assertTrue(specification.isSatisfiedBy(backstagePass));
     }
 
+    @Test
+    void notNullQualitySpecificationTest() {
+        NotNullQualitySpecification specification = new NotNullQualitySpecification();
+        Item item = new Item("item", 10, 15);
+
+        assertTrue(specification.isSatisfiedBy(item));
+    }
 
 }

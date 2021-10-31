@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.specifications.common.NotNullQualitySpecification;
+import com.gildedrose.specifications.common.OutdatedSpecification;
+
 public class Item {
 
     public final static int MAX_QUALITY = 50;
@@ -19,15 +22,19 @@ public class Item {
     }
 
     public void updateQuality() {
+
+        OutdatedSpecification outdatedSpecification = new OutdatedSpecification();
+        NotNullQualitySpecification notNullQuality = new NotNullQualitySpecification();
+
         this.sellIn -= Item.SELLIN_STEP;
 
         // Si la qualité n'est pas encore nulle, elle se dégrade
-        if(this.quality > 0) {
+        if(notNullQuality.isSatisfiedBy(this)) {
 
             this.quality -= Item.QUALITY_STEP;
 
             // Elle se dégrade doublement si l'article est périmé
-            if(this.quality > 0 && this.sellIn < 0) {
+            if(notNullQuality.and(outdatedSpecification).isSatisfiedBy(this)) {
                 this.quality -= Item.QUALITY_STEP;
             }
         }
